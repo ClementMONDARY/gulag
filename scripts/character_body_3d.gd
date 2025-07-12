@@ -5,6 +5,7 @@ const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
+const HIT_STAGGER = 8.0
 
 # Head Movement
 const BOB_FREQ = 2.0
@@ -14,6 +15,9 @@ var t_bob = 0.0
 # FOV Variables
 const BASE_FOV = 75.0
 const FOV_MULTIPLIER = 1.5
+
+# Signals
+signal player_hit
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
@@ -72,3 +76,7 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+func hit(dir):
+	player_hit.emit()
+	velocity += dir * HIT_STAGGER
