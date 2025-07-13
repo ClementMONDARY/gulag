@@ -19,8 +19,13 @@ const FOV_MULTIPLIER = 1.5
 # Signals
 signal player_hit
 
+var bullet = load("res://scenes/bullet.tscn")
+var instance
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var gun_anim = $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
+@onready var gun_barrel = $"Head/Camera3D/Steampunk Rifle/RayCast3D"
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -46,7 +51,6 @@ func _physics_process(delta: float) -> void:
 		speed = WALK_SPEED
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if is_on_floor():
@@ -68,6 +72,14 @@ func _physics_process(delta: float) -> void:
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_MULTIPLIER * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
+	
+	# Gun logic
+	if Input.is_action_pressed("shoot") and !gun_anim.is_playing():
+		gun_anim.play("Shoot")
+		instance = bullet.instantiate()
+		instance.position = gun_barrel.global_position
+		instance.transform.basis = gun_barrel.global_transform.basis
+		get_parent().add_child(instance)
 	
 	move_and_slide()
 
