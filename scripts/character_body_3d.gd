@@ -26,6 +26,8 @@ var instance
 @onready var camera = $Head/Camera3D
 @onready var gun_anim = $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 @onready var gun_barrel = $"Head/Camera3D/Steampunk Rifle/RayCast3D"
+@onready var gun_anim_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/AnimationPlayer"
+@onready var gun_barrel_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/RayCast3D"
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -79,6 +81,13 @@ func _physics_process(delta: float) -> void:
 		instance = bullet.instantiate()
 		instance.position = gun_barrel.global_position
 		instance.transform.basis = gun_barrel.global_transform.basis
+		get_parent().add_child(instance)
+	
+	if Input.is_action_pressed("shoot_secondary") and !gun_anim_secondary.is_playing():
+		gun_anim_secondary.play("Shoot")
+		instance = bullet.instantiate()
+		instance.position = gun_barrel_secondary.global_position
+		instance.transform.basis = gun_barrel_secondary.global_transform.basis
 		get_parent().add_child(instance)
 	
 	move_and_slide()

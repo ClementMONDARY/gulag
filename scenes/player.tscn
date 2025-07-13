@@ -26,4 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_g2els")]
-transform = Transform3D(0.999718, 0.0129421, -0.0198868, -0.0140006, 0.998441, -0.0540424, 0.0191563, 0.0543056, 0.998341, 0.320177, -0.294842, -0.631202)
+transform = Transform3D(0.999703, 0.0149977, 0.0191694, -0.0139417, 0.99844, -0.0540788, -0.0199505, 0.0537956, 0.998353, 0.320177, -0.294842, -0.631202)
+
+[node name="Steampunk Rifle Secondary" parent="Head/Camera3D" instance=ExtResource("2_g2els")]
+transform = Transform3D(0.999732, 0.0129215, -0.0191694, -0.0139417, 0.99844, -0.0540788, 0.0184406, 0.0543316, 0.998353, -0.32, -0.295, -0.631)
