@@ -11,7 +11,3 @@ func _ready() -> void:
 			area.hit()
 	await  get_tree().create_timer(6.0).timeout
 	queue_free()
-
-
-func _process(delta: float) -> void:
-	pass

@@ -22,8 +22,8 @@ func _process(delta: float) -> void:
 		ray.enabled = false
 		particules.emitting = false
 		instance = rocket_explosion.instantiate()
-		instance.global_position = ray.get_collision_point()
 		get_parent().add_child(instance)
+		instance.global_position = ray.get_collision_point()
 		await get_tree().create_timer(0.1).timeout
 		queue_free()
 

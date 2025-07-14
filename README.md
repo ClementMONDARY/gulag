@@ -2,6 +2,8 @@
 
 A small 4-day project, my first 3D project, serving as a foundation for a larger upcoming project.
 
+This project is based on a YouTube tutorial by **LegionGames**: https://www.youtube.com/@legiongames2400
+
 ## Features
 
 - First-person 3D gameplay

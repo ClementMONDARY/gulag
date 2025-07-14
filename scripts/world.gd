@@ -18,9 +18,6 @@ func _ready() -> void:
 	crosshair_hit.position.y = get_viewport().size.y / 2 - 32
 	AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.LEVEL_MUSIC)
 
-func _process(delta: float) -> void:
-	pass
-
 func _on_player_player_hit() -> void:
 	hit_rect.visible = true
 	await get_tree().create_timer(0.2).timeout
