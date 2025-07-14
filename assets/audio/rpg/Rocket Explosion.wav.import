@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dapbk46j844ml"
+path="res://.godot/imported/Rocket Explosion.wav-cd205beaceb2881d69e3b8cc15cc5338.sample"
+
+[deps]
+
+source_file="res://assets/audio/rpg/Rocket Explosion.wav"
+dest_files=["res://.godot/imported/Rocket Explosion.wav-cd205beaceb2881d69e3b8cc15cc5338.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

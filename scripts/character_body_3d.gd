@@ -21,11 +21,13 @@ signal player_hit
 
 var bullet = load("res://scenes/bullet.tscn")
 var bullet_trail = load("res://scenes/bullet_trail.tscn")
+var rocket = preload("res://scenes/rocket.tscn")
 var instance
 
 enum weapons {
+	MACHINEGUN,
 	RIFLES,
-	MACHINEGUN
+	RPG
 }
 var weapon = weapons.MACHINEGUN
 var can_shoot = true
@@ -43,6 +45,8 @@ var can_shoot = true
 @onready var rifle_barrel_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/RayCast3D"
 @onready var machinegun_anim = $"Head/Camera3D/Steampunk Machingun/AnimationPlayer"
 @onready var machingun_barrel = $"Head/Camera3D/Steampunk Machingun/Meshes/Barrel"
+@onready var rocket_launcher_anim = $Head/Camera3D/RocketLauncher/AnimationPlayer
+@onready var rocket_launcher_barrel = $Head/Camera3D/RocketLauncher/Meshes/Barrel
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -97,6 +101,8 @@ func _physics_process(delta: float) -> void:
 				_shoot_machinegun()
 			weapons.RIFLES:
 				_shoot_rifles()
+			weapons.RPG:
+				_shoot_rpg()
 	
 	# Weapon Switching
 	if Input.is_action_just_pressed("switch_weapon"):
@@ -162,12 +168,28 @@ func _shoot_machinegun():
 		else:
 			instance.init(machingun_barrel.global_position, aim_rayend.global_position)
 
+func _shoot_rpg():
+	if !rocket_launcher_anim.is_playing():
+		rocket_launcher_anim.play("Shoot")
+		AudioManager.create_3d_audio_at_location_with_culling(rocket_launcher_barrel.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_RPG_SHOOT)
+		instance = rocket.instantiate()
+		instance.position = rocket_launcher_barrel.global_position
+		instance.transform.basis = rocket_launcher_barrel.global_transform.basis
+		if aim_ray.is_colliding():
+			instance.set_velocity(aim_ray.get_collision_point())
+		else:
+			instance.set_velocity(aim_rayend.global_position)
+		get_parent().add_child(instance)
+
+
 func _lower_weapon():
 	match weapon:
 		weapons.MACHINEGUN:
 			weapon_switching_anim.play("LowerMG")
 		weapons.RIFLES:
 			weapon_switching_anim.play("LowerRifles")
+		weapons.RPG:
+			weapon_switching_anim.play("LowerRPG")
 
 func _raise_weapon(new_weapon):
 	can_shoot = false
@@ -179,5 +201,8 @@ func _raise_weapon(new_weapon):
 			weapon_switching_anim.play_backwards("LowerMG")
 		weapons.RIFLES:
 			weapon_switching_anim.play_backwards("LowerRifles")
+		weapons.RPG:
+			weapon_switching_anim.play_backwards("LowerRPG")
+	await weapon_switching_anim.animation_finished
 	weapon = new_weapon
 	can_shoot = true

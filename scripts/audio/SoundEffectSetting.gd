@@ -8,7 +8,8 @@ enum SOUND_EFFECT_TYPE {
 	ON_MG_SHOOT, # 1
 	ON_RIFLES_SHOOT, # 2
 	ON_WEAPON_SWITCH, # 3
-	ON_PLAYER_WALK # 4
+	ON_PLAYER_WALK, # 4
+	ON_RPG_SHOOT # 5
 }
 
 @export_range(0, 15) var limit: int = 5 ## Maximum number of this SoundEffect to play simultaneously before culled.

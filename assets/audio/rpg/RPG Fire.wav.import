@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://4ibwa0qu73c2"
+path="res://.godot/imported/RPG Fire.wav-9611256d26a9796e39c8ec9039ea95cb.sample"
+
+[deps]
+
+source_file="res://assets/audio/rpg/RPG Fire.wav"
+dest_files=["res://.godot/imported/RPG Fire.wav-9611256d26a9796e39c8ec9039ea95cb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

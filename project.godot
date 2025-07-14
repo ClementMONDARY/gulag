@@ -76,6 +76,10 @@ switch_weapon={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="Enemies"
+
 [shader_globals]
 
 sgt_legacy_renderer={

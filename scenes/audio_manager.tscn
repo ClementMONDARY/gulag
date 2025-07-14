@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bnotqsvineyh2"]
+[gd_scene load_steps=22 format=3 uid="uid://bnotqsvineyh2"]
 
 [ext_resource type="Script" uid="uid://dain13c5ape6n" path="res://scripts/audio/AudioManager.gd" id="1_8qd8g"]
 [ext_resource type="Script" uid="uid://btrxqtwm2wcxf" path="res://scripts/audio/SoundEffectSetting.gd" id="2_3asnw"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://36tbjsrbxjnq" path="res://assets/audio/grass/Grass 4.wav" id="11_cuol6"]
 [ext_resource type="AudioStream" uid="uid://j1p87yke88su" path="res://assets/audio/grass/Grass 5.wav" id="12_m1k83"]
 [ext_resource type="AudioStream" uid="uid://wblhdojuh8oa" path="res://assets/audio/grass/Grass 6.wav" id="13_oummu"]
+[ext_resource type="AudioStream" uid="uid://4ibwa0qu73c2" path="res://assets/audio/rpg/RPG Fire.wav" id="14_2y2jw"]
 
 [sub_resource type="Resource" id="Resource_aoitu"]
 script = ExtResource("2_3asnw")
@@ -79,6 +80,17 @@ pitch_randomness = 0.0
 bus = &"Master"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
+[sub_resource type="Resource" id="Resource_8igv3"]
+script = ExtResource("2_3asnw")
+limit = 2
+type = 5
+sound_effect = ExtResource("14_2y2jw")
+volume = -20.0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+bus = &"Master"
+metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
+
 [node name="AudioManager" type="Node3D"]
 script = ExtResource("1_8qd8g")
-sound_effects = Array[ExtResource("2_3asnw")]([SubResource("Resource_aoitu"), SubResource("Resource_3asnw"), SubResource("Resource_njtn3"), SubResource("Resource_kq7b2"), SubResource("Resource_8b11i")])
+sound_effects = Array[ExtResource("2_3asnw")]([SubResource("Resource_aoitu"), SubResource("Resource_3asnw"), SubResource("Resource_njtn3"), SubResource("Resource_kq7b2"), SubResource("Resource_8b11i"), SubResource("Resource_8igv3")])
