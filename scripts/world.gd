@@ -16,6 +16,7 @@ func _ready() -> void:
 	crosshair.position.y = get_viewport().size.y / 2 - 32
 	crosshair_hit.position.x = get_viewport().size.x / 2 - 32
 	crosshair_hit.position.y = get_viewport().size.y / 2 - 32
+	AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.LEVEL_MUSIC)
 
 func _process(delta: float) -> void:
 	pass

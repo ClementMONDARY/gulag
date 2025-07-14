@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dnyyung3era6e"
+path="res://.godot/imported/MG Shoot.wav-c4f7e9c7f3b8c75880cb2ed91b82c528.sample"
+
+[deps]
+
+source_file="res://assets/audio/MG Shoot.wav"
+dest_files=["res://.godot/imported/MG Shoot.wav-c4f7e9c7f3b8c75880cb2ed91b82c528.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

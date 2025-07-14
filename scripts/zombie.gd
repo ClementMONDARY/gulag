@@ -11,20 +11,19 @@ const ATTACK_RANGE = 2.5
 
 @onready var nav_agent = $NavigationAgent3D
 @onready var anim_tree = $AnimationTree
+@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 signal zombie_hit
 
 func _ready() -> void:
 	player = get_node(player_path)
 	state_machine = anim_tree.get("parameters/playback")
-
-
+	
 func _process(delta: float) -> void:
 	velocity = Vector3.ZERO
 	
 	match state_machine.get_current_node():
 		"Run":
-			# Navigation
 			nav_agent.set_target_position(player.global_transform.origin)
 			var next_nav_point = nav_agent.get_next_path_position()
 			velocity = (next_nav_point - global_transform.origin).normalized() * SPEED
@@ -53,5 +52,6 @@ func _on_area_3d_body_part_hit(dam: Variant) -> void:
 	zombie_hit.emit()
 	if health <= 0.0:
 		anim_tree.set("parameters/conditions/die", true)
+		audio_stream_player_3d.get_stream_playback().switch_to_clip_by_name("Die")
 		await anim_tree.animation_finished
 		queue_free()

@@ -1,0 +1,84 @@
+[gd_scene load_steps=20 format=3 uid="uid://bnotqsvineyh2"]
+
+[ext_resource type="Script" uid="uid://dain13c5ape6n" path="res://scripts/audio/AudioManager.gd" id="1_8qd8g"]
+[ext_resource type="Script" uid="uid://btrxqtwm2wcxf" path="res://scripts/audio/SoundEffectSetting.gd" id="2_3asnw"]
+[ext_resource type="AudioStream" uid="uid://bdxa48peh2tg" path="res://assets/audio/Doom OST - E2M1 - I Sawed the Demons.wav" id="3_m6ggh"]
+[ext_resource type="AudioStream" uid="uid://dnyyung3era6e" path="res://assets/audio/MG Shoot.wav" id="4_m6ggh"]
+[ext_resource type="AudioStream" uid="uid://dmvw743ig831v" path="res://assets/audio/Rifle Shoot.wav" id="5_aoitu"]
+[ext_resource type="AudioStream" uid="uid://dpic45sexsjy1" path="res://assets/audio/Weapon Switch.wav" id="6_njtn3"]
+[ext_resource type="AudioStream" uid="uid://cbdm518pbe5rx" path="res://assets/audio/grass/Grass 0.wav" id="7_8igv3"]
+[ext_resource type="AudioStream" uid="uid://cmffjabxxx8oo" path="res://assets/audio/grass/Grass 1.wav" id="8_2y2jw"]
+[ext_resource type="AudioStream" uid="uid://mt5s8pny7n8s" path="res://assets/audio/grass/Grass 2.wav" id="9_2y5yn"]
+[ext_resource type="AudioStream" uid="uid://d1taxmqp1o5c3" path="res://assets/audio/grass/Grass 3.wav" id="10_oucy0"]
+[ext_resource type="AudioStream" uid="uid://36tbjsrbxjnq" path="res://assets/audio/grass/Grass 4.wav" id="11_cuol6"]
+[ext_resource type="AudioStream" uid="uid://j1p87yke88su" path="res://assets/audio/grass/Grass 5.wav" id="12_m1k83"]
+[ext_resource type="AudioStream" uid="uid://wblhdojuh8oa" path="res://assets/audio/grass/Grass 6.wav" id="13_oummu"]
+
+[sub_resource type="Resource" id="Resource_aoitu"]
+script = ExtResource("2_3asnw")
+limit = 1
+type = 0
+sound_effect = ExtResource("3_m6ggh")
+volume = -35.0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+bus = &"Master"
+metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
+
+[sub_resource type="Resource" id="Resource_3asnw"]
+script = ExtResource("2_3asnw")
+limit = 15
+type = 1
+sound_effect = ExtResource("4_m6ggh")
+volume = -20.0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+bus = &"Master"
+metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
+
+[sub_resource type="Resource" id="Resource_njtn3"]
+script = ExtResource("2_3asnw")
+limit = 10
+type = 2
+sound_effect = ExtResource("5_aoitu")
+volume = -25.0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+bus = &"Master"
+metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
+
+[sub_resource type="Resource" id="Resource_kq7b2"]
+script = ExtResource("2_3asnw")
+limit = 1
+type = 3
+sound_effect = ExtResource("6_njtn3")
+volume = -15.0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+bus = &"Master"
+metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hssp1"]
+streams_count = 7
+stream_0/stream = ExtResource("7_8igv3")
+stream_1/stream = ExtResource("8_2y2jw")
+stream_2/stream = ExtResource("9_2y5yn")
+stream_3/stream = ExtResource("10_oucy0")
+stream_4/stream = ExtResource("11_cuol6")
+stream_5/stream = ExtResource("12_m1k83")
+stream_6/stream = ExtResource("13_oummu")
+
+[sub_resource type="Resource" id="Resource_8b11i"]
+script = ExtResource("2_3asnw")
+limit = 10
+type = 4
+sound_effect = SubResource("AudioStreamRandomizer_hssp1")
+volume = -20.0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+bus = &"Master"
+metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
+
+[node name="AudioManager" type="Node3D"]
+script = ExtResource("1_8qd8g")
+sound_effects = Array[ExtResource("2_3asnw")]([SubResource("Resource_aoitu"), SubResource("Resource_3asnw"), SubResource("Resource_njtn3"), SubResource("Resource_kq7b2"), SubResource("Resource_8b11i")])

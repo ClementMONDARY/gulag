@@ -108,8 +108,14 @@ func _physics_process(delta: float) -> void:
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
+	var prev_y = sin((time - get_physics_process_delta_time()) * velocity.length() * float(is_on_floor()) * BOB_FREQ) * BOB_AMP
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
+	
+	# Play footstep sound when headbob reaches lowest point
+	if prev_y > pos.y and pos.y <= -BOB_AMP * 0.8 and is_on_floor() and velocity.length() > 0.1:
+		AudioManager.create_3d_audio_at_location_with_culling(global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_PLAYER_WALK)
+	
 	return pos
 
 func hit(dir):
@@ -119,6 +125,7 @@ func hit(dir):
 func _shoot_rifles():
 	if !rifle_anim.is_playing():
 		rifle_anim.play("Shoot")
+		AudioManager.create_3d_audio_at_location_with_culling(rifle_barrel.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
 		instance = bullet.instantiate()
 		instance.position = rifle_barrel.global_position
 		instance.transform.basis = rifle_barrel.global_transform.basis
@@ -129,6 +136,7 @@ func _shoot_rifles():
 		get_parent().add_child(instance)
 	if !rifle_anim_secondary.is_playing():
 		rifle_anim_secondary.play("Shoot")
+		AudioManager.create_3d_audio_at_location_with_culling(rifle_barrel_secondary.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
 		instance = bullet.instantiate()
 		instance.position = rifle_barrel_secondary.global_position
 		instance.transform.basis = rifle_barrel_secondary.global_transform.basis
@@ -141,6 +149,7 @@ func _shoot_rifles():
 func _shoot_machinegun():
 	if !machinegun_anim.is_playing():
 		machinegun_anim.play("Shoot")
+		AudioManager.create_3d_audio_at_location_with_culling(machingun_barrel.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_MG_SHOOT)
 		instance = bullet_trail.instantiate()
 		if aim_ray.is_colliding():
 			instance.init(machingun_barrel.global_position, aim_ray.get_collision_point())
@@ -164,6 +173,7 @@ func _raise_weapon(new_weapon):
 	can_shoot = false
 	_lower_weapon()
 	await weapon_switching_anim.animation_finished
+	AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_WEAPON_SWITCH)
 	match new_weapon:
 		weapons.MACHINEGUN:
 			weapon_switching_anim.play_backwards("LowerMG")

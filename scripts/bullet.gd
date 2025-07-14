@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func set_velocity(target):
-	look_at(target)
+	look_at_from_position(position, target)
 	velocity = position.direction_to(target) * SPEED
 
 func _on_timer_timeout() -> void:
