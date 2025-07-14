@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdoig120or01t"]
+[gd_scene load_steps=5 format=3 uid="uid://cdoig120or01t"]
 
 [ext_resource type="Script" uid="uid://qu08mvocbff8" path="res://scripts/rocket_explosion.gd" id="1_ofjtr"]
 [ext_resource type="AudioStream" uid="uid://dapbk46j844ml" path="res://assets/audio/rpg/Rocket Explosion.wav" id="2_8sau2"]
+[ext_resource type="PackedScene" uid="uid://bmtnihc6f8v34" path="res://scenes/Prefab.tscn" id="3_8jpkn"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nuhyi"]
 radius = 5.0
@@ -21,3 +22,5 @@ stream = ExtResource("2_8sau2")
 volume_db = -7.0
 autoplay = true
 max_distance = 200.0
+
+[node name="ExplosionPrefab" parent="." instance=ExtResource("3_8jpkn")]

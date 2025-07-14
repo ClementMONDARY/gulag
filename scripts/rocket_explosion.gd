@@ -9,7 +9,7 @@ func _ready() -> void:
 	for area in overlapping_areas:
 		if area.is_in_group("enemy"):
 			area.hit()
-	await  get_tree().create_timer(3.0).timeout
+	await  get_tree().create_timer(6.0).timeout
 	queue_free()
 
 

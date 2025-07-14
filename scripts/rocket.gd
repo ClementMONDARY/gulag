@@ -32,4 +32,7 @@ func set_velocity(target):
 	velocity = position.direction_to(target) * SPEED
 
 func _on_timer_timeout() -> void:
+	instance = rocket_explosion.instantiate()
+	instance.global_position = global_position
+	get_parent().add_child(instance)
 	queue_free()
