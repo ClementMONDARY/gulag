@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://0g7wvycqe50a"]
+
+[ext_resource type="Script" uid="uid://d18bpn7ypa6ex" path="res://scripts/bullet_trail.gd" id="1_yj8wl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3krn5"]
+transparency = 1
+albedo_color = Color(1, 0.670588, 0.278431, 1)
+emission_enabled = true
+emission = Color(0.992157, 0.709804, 0.196078, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_yj8wl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj8wl"]
+albedo_color = Color(0.666667, 0.129412, 0.180392, 1)
+roughness = 0.1
+emission_enabled = true
+emission = Color(0.627451, 0.0784314, 0.0705882, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="Curve" id="Curve_yj8wl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3krn5"]
+curve = SubResource("Curve_yj8wl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aesse"]
+direction = Vector3(0, 0, -1)
+spread = 25.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_curve = SubResource("CurveTexture_3krn5")
+
+[sub_resource type="SphereMesh" id="SphereMesh_3krn5"]
+radius = 0.04
+height = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aesse"]
+albedo_color = Color(0.257408, 0.126005, 0.0459906, 1)
+emission = Color(0.627451, 0.0784314, 0.0705882, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m7b5u"]
+direction = Vector3(0, 0, -1)
+spread = 25.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_curve = SubResource("CurveTexture_3krn5")
+
+[sub_resource type="SphereMesh" id="SphereMesh_oyl65"]
+radius = 0.04
+height = 0.08
+
+[node name="BulletTrail" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_3krn5")
+mesh = SubResource("ImmediateMesh_yj8wl")
+script = ExtResource("1_yj8wl")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="BloodSplatter" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_yj8wl")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_aesse")
+draw_pass_1 = SubResource("SphereMesh_3krn5")
+
+[node name="TerrainSplatter" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_aesse")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_m7b5u")
+draw_pass_1 = SubResource("SphereMesh_oyl65")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

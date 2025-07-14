@@ -20,14 +20,29 @@ const FOV_MULTIPLIER = 1.5
 signal player_hit
 
 var bullet = load("res://scenes/bullet.tscn")
+var bullet_trail = load("res://scenes/bullet_trail.tscn")
 var instance
+
+enum weapons {
+	RIFLES,
+	MACHINEGUN
+}
+var weapon = weapons.MACHINEGUN
+var can_shoot = true
+@onready var weapon_switching_anim = $Head/Camera3D/WeaponSwitching
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-@onready var gun_anim = $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
-@onready var gun_barrel = $"Head/Camera3D/Steampunk Rifle/RayCast3D"
-@onready var gun_anim_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/AnimationPlayer"
-@onready var gun_barrel_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/RayCast3D"
+@onready var aim_ray = $Head/Camera3D/AimRay
+@onready var aim_rayend = $Head/Camera3D/AimRayend
+
+# Guns
+@onready var rifle_anim = $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
+@onready var rifle_barrel = $"Head/Camera3D/Steampunk Rifle/RayCast3D"
+@onready var rifle_anim_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/AnimationPlayer"
+@onready var rifle_barrel_secondary = $"Head/Camera3D/Steampunk Rifle Secondary/RayCast3D"
+@onready var machinegun_anim = $"Head/Camera3D/Steampunk Machingun/AnimationPlayer"
+@onready var machingun_barrel = $"Head/Camera3D/Steampunk Machingun/Meshes/Barrel"
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -76,19 +91,18 @@ func _physics_process(delta: float) -> void:
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 	
 	# Gun logic
-	if Input.is_action_pressed("shoot") and !gun_anim.is_playing():
-		gun_anim.play("Shoot")
-		instance = bullet.instantiate()
-		instance.position = gun_barrel.global_position
-		instance.transform.basis = gun_barrel.global_transform.basis
-		get_parent().add_child(instance)
+	if Input.is_action_pressed("shoot") and can_shoot:
+		match weapon:
+			weapons.MACHINEGUN:
+				_shoot_machinegun()
+			weapons.RIFLES:
+				_shoot_rifles()
 	
-	if Input.is_action_pressed("shoot_secondary") and !gun_anim_secondary.is_playing():
-		gun_anim_secondary.play("Shoot")
-		instance = bullet.instantiate()
-		instance.position = gun_barrel_secondary.global_position
-		instance.transform.basis = gun_barrel_secondary.global_transform.basis
-		get_parent().add_child(instance)
+	# Weapon Switching
+	if Input.is_action_just_pressed("switch_weapon"):
+		var next_weapon = (weapon + 1) % weapons.size()
+		_raise_weapon(next_weapon)
+		
 	
 	move_and_slide()
 
@@ -101,3 +115,59 @@ func _headbob(time) -> Vector3:
 func hit(dir):
 	player_hit.emit()
 	velocity += dir * HIT_STAGGER
+
+func _shoot_rifles():
+	if !rifle_anim.is_playing():
+		rifle_anim.play("Shoot")
+		instance = bullet.instantiate()
+		instance.position = rifle_barrel.global_position
+		instance.transform.basis = rifle_barrel.global_transform.basis
+		if aim_ray.is_colliding():
+			instance.set_velocity(aim_ray.get_collision_point())
+		else:
+			instance.set_velocity(aim_rayend.global_position)
+		get_parent().add_child(instance)
+	if !rifle_anim_secondary.is_playing():
+		rifle_anim_secondary.play("Shoot")
+		instance = bullet.instantiate()
+		instance.position = rifle_barrel_secondary.global_position
+		instance.transform.basis = rifle_barrel_secondary.global_transform.basis
+		if aim_ray.is_colliding():
+			instance.set_velocity(aim_ray.get_collision_point())
+		else:
+			instance.set_velocity(aim_rayend.global_position)
+		get_parent().add_child(instance)
+
+func _shoot_machinegun():
+	if !machinegun_anim.is_playing():
+		machinegun_anim.play("Shoot")
+		instance = bullet_trail.instantiate()
+		if aim_ray.is_colliding():
+			instance.init(machingun_barrel.global_position, aim_ray.get_collision_point())
+			get_parent().add_child(instance)
+			if aim_ray.get_collider().is_in_group("enemy"):
+				aim_ray.get_collider().hit()
+				instance.trigger_particles(aim_ray.get_collision_point(), machingun_barrel.global_position, true)
+			else:
+				instance.trigger_particles(aim_ray.get_collision_point(), machingun_barrel.global_position, false)
+		else:
+			instance.init(machingun_barrel.global_position, aim_rayend.global_position)
+
+func _lower_weapon():
+	match weapon:
+		weapons.MACHINEGUN:
+			weapon_switching_anim.play("LowerMG")
+		weapons.RIFLES:
+			weapon_switching_anim.play("LowerRifles")
+
+func _raise_weapon(new_weapon):
+	can_shoot = false
+	_lower_weapon()
+	await weapon_switching_anim.animation_finished
+	match new_weapon:
+		weapons.MACHINEGUN:
+			weapon_switching_anim.play_backwards("LowerMG")
+		weapons.RIFLES:
+			weapon_switching_anim.play_backwards("LowerRifles")
+	weapon = new_weapon
+	can_shoot = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://cikdph0cjeuhm"]
+[gd_scene load_steps=28 format=4 uid="uid://cikdph0cjeuhm"]
 
 [ext_resource type="Script" uid="uid://bovuq13piexbu" path="res://scripts/world.gd" id="1_7t5mc"]
 [ext_resource type="Texture2D" uid="uid://bbsb33b3kqlne" path="res://assets/textures/696.jpg" id="1_rwgxs"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://c4ggdp0kg5wjk" path="res://addons/simplegrasstextured/textures/grassbushcc008.png" id="14_dss4m"]
 [ext_resource type="Script" uid="uid://2juaclm8gc1n" path="res://addons/simplegrasstextured/grass.gd" id="15_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://cj0ioujq1uhw4" path="res://scenes/player.tscn" id="16_dss4m"]
+[ext_resource type="Texture2D" uid="uid://bfvno5n3udxqp" path="res://assets/textures/crosshair161.png" id="17_7t5mc"]
+[ext_resource type="Texture2D" uid="uid://0sl41w4543am" path="res://assets/textures/crosshair162.png" id="18_lakw3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e3hyu"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -1814,14 +1816,32 @@ offset_bottom = 40.0
 [node name="ColorRect" type="ColorRect" parent="UI"]
 visible = false
 layout_mode = 0
-offset_left = -208.0
-offset_top = -163.0
-offset_right = 1350.0
-offset_bottom = 819.0
+offset_left = -157.0
+offset_top = -107.0
+offset_right = 2386.0
+offset_bottom = 1476.0
+mouse_filter = 2
 color = Color(1, 0, 0, 0.12549)
+
+[node name="CrosshairHit" type="TextureRect" parent="UI"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("18_lakw3")
+
+[node name="Crosshair" type="TextureRect" parent="UI"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("17_7t5mc")
 
 [node name="ZombieSpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
+[connection signal="player_hit" from="Map/NavigationRegion3D/Player" to="." method="_on_player_player_hit"]
 [connection signal="timeout" from="ZombieSpawnTimer" to="." method="_on_zombie_spawn_timer_timeout"]

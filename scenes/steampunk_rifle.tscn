@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bxd8em718n4ax"]
 
-[ext_resource type="PackedScene" uid="uid://bh05428abt5fx" path="res://assets/models/weapon/Steampunk Rifle.glb" id="1_rkhyx"]
+[ext_resource type="PackedScene" uid="uid://bh05428abt5fx" path="res://assets/models/weapon/rifle/Steampunk Rifle.glb" id="1_rkhyx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkhyx"]
 albedo_color = Color(0.556953, 0.556953, 0.556953, 1)

@@ -12,6 +12,7 @@ const ATTACK_RANGE = 2.5
 @onready var nav_agent = $NavigationAgent3D
 @onready var anim_tree = $AnimationTree
 
+signal zombie_hit
 
 func _ready() -> void:
 	player = get_node(player_path)
@@ -49,6 +50,7 @@ func _hit_finished():
 
 func _on_area_3d_body_part_hit(dam: Variant) -> void:
 	health -= dam
+	zombie_hit.emit()
 	if health <= 0.0:
 		anim_tree.set("parameters/conditions/die", true)
 		await anim_tree.animation_finished
