@@ -21,9 +21,9 @@ This project is based on a YouTube tutorial by **LegionGames**: https://www.yout
 
 - **Steampunk Rifle** by chiwei: https://skfb.ly/oEruW
 - **Kenney Crosshair Pack**: https://kenney.nl/assets/crosshair-pack
-- **Muzzle Flashes**: https://opengameart.org/content/16-to...
+- **Muzzle Flashes**: https://opengameart.org/content/16-toon-muzzle-flash
 - **Zombie model**: https://www.mixamo.com/
-- **Ground texture** by 0melapics: https://www.freepik.com/free-vector/e...
+- **Ground texture** by 0melapics: https://www.freepik.com/free-vector/earth-texture_997013.htm
 - **Kenney Graveyard Kit**: https://www.kenney.nl/assets/graveyard-kit
 - **Steampunk Rifle** by Jake Sharp: https://poly.pizza/m/1aBSH8_oopt
 
