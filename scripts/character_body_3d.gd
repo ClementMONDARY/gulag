@@ -55,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -105,7 +105,7 @@ func _physics_process(delta: float) -> void:
 				_shoot_rpg()
 	
 	# Weapon Switching
-	if Input.is_action_just_pressed("switch_weapon"):
+	if Input.is_action_just_pressed("switch_weapon") && can_shoot:
 		var next_weapon = (weapon + 1) % weapons.size()
 		_raise_weapon(next_weapon)
 		

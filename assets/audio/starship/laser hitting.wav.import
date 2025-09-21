@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ckr14hb4nvrrt"
+path="res://.godot/imported/laser hitting.wav-24b5b33d6e880c709564e6d43765601e.sample"
+
+[deps]
+
+source_file="res://assets/audio/starship/laser hitting.wav"
+dest_files=["res://.godot/imported/laser hitting.wav-24b5b33d6e880c709564e6d43765601e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
