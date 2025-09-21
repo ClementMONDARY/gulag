@@ -18,12 +18,9 @@
 [sub_resource type="Resource" id="Resource_aoitu"]
 script = ExtResource("2_3asnw")
 limit = 1
-type = 0
 sound_effect = ExtResource("3_m6ggh")
 volume = -35.0
-pitch_scale = 1.0
-pitch_randomness = 0.0
-bus = &"Master"
+bus = &"Music"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
 [sub_resource type="Resource" id="Resource_3asnw"]
@@ -32,9 +29,6 @@ limit = 15
 type = 1
 sound_effect = ExtResource("4_m6ggh")
 volume = -20.0
-pitch_scale = 1.0
-pitch_randomness = 0.0
-bus = &"Master"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
 [sub_resource type="Resource" id="Resource_njtn3"]
@@ -43,9 +37,6 @@ limit = 10
 type = 2
 sound_effect = ExtResource("5_aoitu")
 volume = -20.0
-pitch_scale = 1.0
-pitch_randomness = 0.0
-bus = &"Master"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
 [sub_resource type="Resource" id="Resource_kq7b2"]
@@ -54,9 +45,6 @@ limit = 1
 type = 3
 sound_effect = ExtResource("6_njtn3")
 volume = -15.0
-pitch_scale = 1.0
-pitch_randomness = 0.0
-bus = &"Master"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hssp1"]
@@ -75,9 +63,6 @@ limit = 10
 type = 4
 sound_effect = SubResource("AudioStreamRandomizer_hssp1")
 volume = -20.0
-pitch_scale = 1.0
-pitch_randomness = 0.0
-bus = &"Master"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
 [sub_resource type="Resource" id="Resource_8igv3"]
@@ -86,9 +71,6 @@ limit = 2
 type = 5
 sound_effect = ExtResource("14_2y2jw")
 volume = -20.0
-pitch_scale = 1.0
-pitch_randomness = 0.0
-bus = &"Master"
 metadata/_custom_type_script = "uid://btrxqtwm2wcxf"
 
 [node name="AudioManager" type="Node3D"]

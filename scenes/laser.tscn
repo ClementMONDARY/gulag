@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://bnd8yh3jqw48b" path="res://assets/shaders/s_simple_shader.tres" id="2_a7dhc"]
 [ext_resource type="AudioStream" uid="uid://dm4qv2pjpsuca" path="res://assets/audio/starship/charging laser.wav" id="3_412cd"]
 [ext_resource type="AudioStream" uid="uid://ckr14hb4nvrrt" path="res://assets/audio/starship/laser hitting.wav" id="4_412cd"]
-[ext_resource type="Texture2D" uid="uid://dvohcmcied1ek" path="res://assets/textures/T_VFX_Glow_1.PNG" id="4_788yo"]
+[ext_resource type="Texture2D" uid="uid://cht5fgjsrnqui" path="res://assets/textures/T_VFX_Flare_15.PNG" id="4_788yo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xmihv"]
 render_priority = 0
@@ -263,8 +263,8 @@ angular_velocity_min = 14.999984
 angular_velocity_max = 14.999984
 angular_velocity_curve = SubResource("CurveTexture_7c0by")
 gravity = Vector3(0, 0, 0)
-scale_min = 15.0
-scale_max = 15.0
+scale_min = 25.0
+scale_max = 25.0
 scale_curve = SubResource("CurveTexture_2niam")
 color = Color(1, 0.28627452, 0.22745098, 1)
 emission_curve = SubResource("CurveTexture_tg066")
@@ -751,6 +751,7 @@ bus = &"ReverbBus"
 [node name="LaserHitting" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 228.51567)
 stream = ExtResource("4_412cd")
+volume_db = -10.0
 max_distance = 500.0
 bus = &"ReverbBus"
 

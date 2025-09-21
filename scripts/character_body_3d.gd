@@ -19,6 +19,7 @@ const FOV_MULTIPLIER = 1.5
 # Signals
 signal player_hit
 
+var orbital_laser_scene = preload("uid://s74f5sqvf78i")
 var bullet = load("res://scenes/bullet.tscn")
 var bullet_trail = load("res://scenes/bullet_trail.tscn")
 var rocket = preload("res://scenes/rocket.tscn")
@@ -27,16 +28,19 @@ var instance
 enum weapons {
 	MACHINEGUN,
 	RIFLES,
-	RPG
+	RPG,
+	REMOTE
 }
 var weapon = weapons.MACHINEGUN
 var can_shoot = true
+var can_use_remote = true
 @onready var weapon_switching_anim = $Head/Camera3D/WeaponSwitching
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var aim_ray = $Head/Camera3D/AimRay
 @onready var aim_rayend = $Head/Camera3D/AimRayend
+@onready var airstrike_mark: MeshInstance3D = $AirstrikeMark
 
 # Guns
 @onready var rifle_anim = $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
@@ -47,6 +51,7 @@ var can_shoot = true
 @onready var machingun_barrel = $"Head/Camera3D/Steampunk Machingun/Meshes/Barrel"
 @onready var rocket_launcher_anim = $Head/Camera3D/RocketLauncher/AnimationPlayer
 @onready var rocket_launcher_barrel = $Head/Camera3D/RocketLauncher/Meshes/Barrel
+@onready var remote_control: Node3D = $Head/Camera3D/remote_control
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -103,12 +108,20 @@ func _physics_process(delta: float) -> void:
 				_shoot_rifles()
 			weapons.RPG:
 				_shoot_rpg()
+			weapons.REMOTE:
+				_shoot_remote()
 	
 	# Weapon Switching
 	if Input.is_action_just_pressed("switch_weapon") && can_shoot:
 		var next_weapon = (weapon + 1) % weapons.size()
 		_raise_weapon(next_weapon)
 		
+	# Handle Airstrike Mark
+	if weapon == weapons.REMOTE and can_shoot and aim_ray.is_colliding():
+		airstrike_mark.set_visible(true)
+		airstrike_mark.global_position = aim_ray.get_collision_point()
+	else:
+		airstrike_mark.set_visible(false)
 	
 	move_and_slide()
 
@@ -181,6 +194,16 @@ func _shoot_rpg():
 			instance.set_velocity(aim_rayend.global_position)
 		get_parent().add_child(instance)
 
+func _shoot_remote() -> void:
+	if aim_ray.is_colliding() and can_use_remote:
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -10)
+		can_use_remote = false
+		var i = orbital_laser_scene.instantiate()
+		get_parent().add_child(i)
+		i.global_position = aim_ray.get_collision_point()
+		await i.get_node("AnimationPlayer").animation_finished
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), 0)
+		can_use_remote = true
 
 func _lower_weapon():
 	match weapon:
@@ -190,6 +213,8 @@ func _lower_weapon():
 			weapon_switching_anim.play("LowerRifles")
 		weapons.RPG:
 			weapon_switching_anim.play("LowerRPG")
+		weapons.REMOTE:
+			weapon_switching_anim.play("LowerRemote")
 
 func _raise_weapon(new_weapon):
 	can_shoot = false
@@ -203,6 +228,8 @@ func _raise_weapon(new_weapon):
 			weapon_switching_anim.play_backwards("LowerRifles")
 		weapons.RPG:
 			weapon_switching_anim.play_backwards("LowerRPG")
+		weapons.REMOTE:
+			weapon_switching_anim.play_backwards("LowerRemote")
 	await weapon_switching_anim.animation_finished
 	weapon = new_weapon
 	can_shoot = true

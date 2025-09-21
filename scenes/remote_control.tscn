@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://gm5ygcv3a4pd"]
+
+[ext_resource type="PackedScene" uid="uid://vg02ywbgtc2i" path="res://assets/models/remote/remote_control.glb" id="1_4xxdd"]
+
+[node name="remote_control" instance=ExtResource("1_4xxdd")]
+
+[node name="Cube_Material_0" parent="." index="0"]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0, 0)

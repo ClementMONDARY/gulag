@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://s74f5sqvf78i"]
+[gd_scene load_steps=14 format=4 uid="uid://s74f5sqvf78i"]
 
 [ext_resource type="Texture2D" uid="uid://bwfp578kritob" path="res://assets/models/starship/Starship_cortemp.png" id="1_7jedo"]
 [ext_resource type="Script" uid="uid://dpdbutga65a6i" path="res://scripts/orbital_laser_scene.gd" id="1_k0oc2"]
 [ext_resource type="AudioStream" uid="uid://cqc415l4euahq" path="res://assets/audio/starship/exit hyperspace.wav" id="2_4rmva"]
 [ext_resource type="AudioStream" uid="uid://bd28p2wnukw6a" path="res://assets/audio/starship/siren.wav" id="3_k15sb"]
 [ext_resource type="PackedScene" uid="uid://cnpbdleukbwrj" path="res://scenes/laser.tscn" id="4_sndce"]
+[ext_resource type="AudioStream" uid="uid://cbajx7vmtnc4t" path="res://assets/audio/starship/enter hyperspace.wav" id="5_82t3g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4u1sl"]
 resource_name = "None.001"
@@ -61,7 +62,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.848, 240, 0)]
+"values": [Vector3(0, 240, -4.134)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -75,10 +76,22 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Starship/EnterHyperspace:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_sndce"]
 resource_name = "default"
-length = 20.0
+length = 42.0
 step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,10 +100,10 @@ tracks/0/path = NodePath("Starship:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 5.8, 6),
-"transitions": PackedFloat32Array(1, 2, 1),
+"times": PackedFloat32Array(0, 5.8, 6, 37.35767, 40.6, 41),
+"transitions": PackedFloat32Array(1, 2, 1, 2, 1, 1),
 "update": 0,
-"values": [Vector3(0.848, 240, -2000), Vector3(0.848, 240, -2000), Vector3(0.848, 240, 42.62)]
+"values": [Vector3(0.848, 240, -2000), Vector3(0.848, 240, -2000), Vector3(0, 240, -4.134), Vector3(0, 240, -4.134), Vector3(0, 240, 6.951), Vector3(0, 240, 2000)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -99,10 +112,10 @@ tracks/1/path = NodePath("Starship:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 5.8),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 5.8, 41),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -123,12 +136,24 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(10),
+"times": PackedFloat32Array(6.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"shoot_laser"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Starship/EnterHyperspace:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(36.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_82t3g"]
@@ -141,20 +166,27 @@ _data = {
 script = ExtResource("1_k0oc2")
 
 [node name="Starship" type="Node3D" parent="."]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0.848, 240, 0)
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 240, -4.134)
 
 [node name="Ship_1" type="MeshInstance3D" parent="Starship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.02923)
 mesh = SubResource("ArrayMesh_sqxc0")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_4rmva")
 
 [node name="Laser" parent="Starship/Ship_1" instance=ExtResource("4_sndce")]
-transform = Transform3D(-1, 8.742278e-08, 0, 7.1054274e-15, 4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 1.1324883e-06, 12.655975, -28.039022)
+transform = Transform3D(-1, 8.742278e-08, 0, 7.1054274e-15, 4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 0.90739554, 12.655975, -27.816824)
 
 [node name="ExitHyperspace" type="AudioStreamPlayer3D" parent="Starship"]
 transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0.84800076, 8.7332, -42.619995)
 stream = ExtResource("2_4rmva")
 volume_db = 15.0
+bus = &"ReverbBus"
+
+[node name="EnterHyperspace" type="AudioStreamPlayer3D" parent="Starship"]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0.84800076, 8.7332, -42.619995)
+stream = ExtResource("5_82t3g")
+volume_db = 20.0
 bus = &"ReverbBus"
 
 [node name="Sirens" type="AudioStreamPlayer3D" parent="."]
