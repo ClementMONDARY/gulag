@@ -20,8 +20,8 @@ const FOV_MULTIPLIER = 1.5
 signal player_hit
 
 var orbital_laser_scene = preload("uid://s74f5sqvf78i")
-var bullet = load("res://scenes/bullet.tscn")
-var bullet_trail = load("res://scenes/bullet_trail.tscn")
+var bullet = preload("res://scenes/bullet.tscn")
+var bullet_trail = preload("res://scenes/bullet_trail.tscn")
 var rocket = preload("res://scenes/rocket.tscn")
 var instance
 
@@ -55,6 +55,12 @@ var can_use_remote = true
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var dummy
+	dummy = orbital_laser_scene.instantiate()
+	dummy = bullet.instantiate()
+	dummy = bullet_trail.instantiate()
+	dummy = rocket.instantiate()
+	dummy.queue_free()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -133,7 +139,7 @@ func _headbob(time) -> Vector3:
 	
 	# Play footstep sound when headbob reaches lowest point
 	if prev_y > pos.y and pos.y <= -BOB_AMP * 0.8 and is_on_floor() and velocity.length() > 0.1:
-		AudioManager.create_3d_audio_at_location_with_culling(global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_PLAYER_WALK)
+		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_PLAYER_WALK)
 	
 	return pos
 
@@ -144,7 +150,7 @@ func hit(dir):
 func _shoot_rifles():
 	if !rifle_anim.is_playing():
 		rifle_anim.play("Shoot")
-		AudioManager.create_3d_audio_at_location_with_culling(rifle_barrel.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
+		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
 		instance = bullet.instantiate()
 		instance.position = rifle_barrel.global_position
 		instance.transform.basis = rifle_barrel.global_transform.basis
@@ -155,7 +161,7 @@ func _shoot_rifles():
 		get_parent().add_child(instance)
 	if !rifle_anim_secondary.is_playing():
 		rifle_anim_secondary.play("Shoot")
-		AudioManager.create_3d_audio_at_location_with_culling(rifle_barrel_secondary.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
+		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
 		instance = bullet.instantiate()
 		instance.position = rifle_barrel_secondary.global_position
 		instance.transform.basis = rifle_barrel_secondary.global_transform.basis
@@ -168,7 +174,7 @@ func _shoot_rifles():
 func _shoot_machinegun():
 	if !machinegun_anim.is_playing():
 		machinegun_anim.play("Shoot")
-		AudioManager.create_3d_audio_at_location_with_culling(machingun_barrel.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_MG_SHOOT)
+		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_MG_SHOOT)
 		instance = bullet_trail.instantiate()
 		if aim_ray.is_colliding():
 			instance.init(machingun_barrel.global_position, aim_ray.get_collision_point())
@@ -184,7 +190,7 @@ func _shoot_machinegun():
 func _shoot_rpg():
 	if !rocket_launcher_anim.is_playing():
 		rocket_launcher_anim.play("Shoot")
-		AudioManager.create_3d_audio_at_location_with_culling(rocket_launcher_barrel.global_position, SoundEffect.SOUND_EFFECT_TYPE.ON_RPG_SHOOT)
+		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_RPG_SHOOT)
 		instance = rocket.instantiate()
 		instance.position = rocket_launcher_barrel.global_position
 		instance.transform.basis = rocket_launcher_barrel.global_transform.basis
@@ -196,14 +202,13 @@ func _shoot_rpg():
 
 func _shoot_remote() -> void:
 	if aim_ray.is_colliding() and can_use_remote:
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -10)
 		can_use_remote = false
 		var i = orbital_laser_scene.instantiate()
 		get_parent().add_child(i)
 		i.global_position = aim_ray.get_collision_point()
 		await i.get_node("AnimationPlayer").animation_finished
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), 0)
 		can_use_remote = true
+		i.queue_free()
 
 func _lower_weapon():
 	match weapon:
