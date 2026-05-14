@@ -1,7 +1,7 @@
-[gd_scene load_steps=69 format=4 uid="uid://cnpbdleukbwrj"]
+[gd_scene format=4 uid="uid://cnpbdleukbwrj"]
 
 [ext_resource type="Shader" uid="uid://u1cjgdmt2w3m" path="res://assets/shaders/s_dynamic_shader.tres" id="1_a7dhc"]
-[ext_resource type="Script" uid="uid://ccnq6oi750l18" path="res://scripts/laser.gd" id="1_q8rul"]
+[ext_resource type="Script" uid="uid://ccnq6oi750l18" path="res://scripts/weapons/laser.gd" id="1_q8rul"]
 [ext_resource type="Shader" uid="uid://bnd8yh3jqw48b" path="res://assets/shaders/s_simple_shader.tres" id="2_a7dhc"]
 [ext_resource type="AudioStream" uid="uid://dm4qv2pjpsuca" path="res://assets/audio/starship/charging laser.wav" id="3_412cd"]
 [ext_resource type="AudioStream" uid="uid://ckr14hb4nvrrt" path="res://assets/audio/starship/laser hitting.wav" id="4_412cd"]

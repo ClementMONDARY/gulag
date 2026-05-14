@@ -1,12 +1,12 @@
-[gd_scene load_steps=66 format=3 uid="uid://bmtnihc6f8v34"]
+[gd_scene format=3 uid="uid://bmtnihc6f8v34"]
 
-[ext_resource type="Animation" uid="uid://c0l6otiga2hut" path="res://PlayExplosion.res" id="1_3qjph"]
+[ext_resource type="Animation" uid="uid://c0l6otiga2hut" path="res://Shaders/PlayExplosion.res" id="1_3qjph"]
 [ext_resource type="Material" uid="uid://hgi1hpyhnnel" path="res://Shaders/CloudMaterial.tres" id="1_rt8wd"]
 [ext_resource type="ArrayMesh" uid="uid://bipp4ames3whb" path="res://ExplosionRingMesh.res" id="2_udaf6"]
 [ext_resource type="Material" uid="uid://7ig6rty5eqvd" path="res://Shaders/InternalCloudMaterial.tres" id="3_x2se0"]
 [ext_resource type="Material" uid="uid://ca4h3786y6aau" path="res://Shaders/ShockwaveMaterial.tres" id="4_88vr2"]
 [ext_resource type="Material" uid="uid://c82veycg0l5xj" path="res://Shaders/PrimaryCloudMaterial.tres" id="5_v84nq"]
-[ext_resource type="Shader" uid="uid://bv24giof5taqb" path="res://Shaders/SmokeShader.gdshader" id="7_up78f"]
+[ext_resource type="Shader" uid="uid://boxa8415a61im" path="res://Shaders/SmokeShader.gdshader" id="7_up78f"]
 [ext_resource type="NoiseTexture3D" uid="uid://bwydqh15qmvxa" path="res://Shaders/NoiseResource.tres" id="8_lb17h"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1julr"]

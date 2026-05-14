@@ -1,11 +1,11 @@
-[gd_scene load_steps=45 format=4 uid="uid://cuix805g5wvhq"]
+[gd_scene format=4 uid="uid://cuix805g5wvhq"]
 
 [ext_resource type="Texture2D" uid="uid://kypp8oiuq3u4" path="res://assets/models/zombie/Zombie_mremireh_body__diffuse.png" id="1_4gx57"]
-[ext_resource type="Script" uid="uid://240lus0218hs" path="res://scripts/zombie.gd" id="1_ycv6i"]
+[ext_resource type="Script" uid="uid://240lus0218hs" path="res://scripts/entities/zombie.gd" id="1_ycv6i"]
 [ext_resource type="Texture2D" uid="uid://dj8dp5ra0xdpm" path="res://assets/models/zombie/Zombie_mremireh_body_normal.png" id="2_ycv6i"]
 [ext_resource type="Texture2D" uid="uid://cfc0uyhj7d17f" path="res://assets/models/zombie/Zombie_mremireh_shoe_diffuse.png" id="3_pjjxt"]
 [ext_resource type="Texture2D" uid="uid://bddmc5ud37pvd" path="res://assets/models/zombie/Zombie_mremireh_shoe_normal.png" id="4_7pfmu"]
-[ext_resource type="Script" uid="uid://cpdrfi0ho1sc2" path="res://scripts/zombie_body_part.gd" id="6_pjjxt"]
+[ext_resource type="Script" uid="uid://cpdrfi0ho1sc2" path="res://scripts/entities/zombie_body_part.gd" id="6_pjjxt"]
 [ext_resource type="AudioStream" uid="uid://b33kr8adin6vy" path="res://assets/audio/Zombie sounds.wav" id="7_7pfmu"]
 [ext_resource type="AudioStream" uid="uid://cha6su8nhi4ds" path="res://assets/audio/Zombie Die.wav" id="8_3fthk"]
 

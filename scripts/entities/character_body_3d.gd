@@ -20,9 +20,9 @@ const FOV_MULTIPLIER = 1.5
 signal player_hit
 
 var orbital_laser_scene = preload("uid://s74f5sqvf78i")
-var bullet = preload("res://scenes/bullet.tscn")
-var bullet_trail = preload("res://scenes/bullet_trail.tscn")
-var rocket = preload("res://scenes/rocket.tscn")
+var bullet = preload("res://scenes/models/weapons/bullet.tscn")
+var bullet_trail = preload("res://scenes/models/weapons/bullet_trail.tscn")
+var rocket = preload("res://scenes/models/weapons/rocket.tscn")
 var instance
 
 enum weapons {
@@ -34,6 +34,10 @@ enum weapons {
 var weapon = weapons.MACHINEGUN
 var can_shoot = true
 var can_use_remote = true
+var machingun_current_ammo
+var rifles_current_ammo
+var rpg_current_ammo
+var laser_current_ammo
 @onready var weapon_switching_anim = $Head/Camera3D/WeaponSwitching
 
 @onready var head = $Head
@@ -41,6 +45,10 @@ var can_use_remote = true
 @onready var aim_ray = $Head/Camera3D/AimRay
 @onready var aim_rayend = $Head/Camera3D/AimRayend
 @onready var airstrike_mark: MeshInstance3D = $AirstrikeMark
+
+# UI
+@onready var hotbar = $"../../../UI/GridContainer"
+@onready var ammo_tracker = $"../../../UI/AmmoTracker"
 
 # Guns
 @onready var rifle_anim = $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
@@ -52,6 +60,10 @@ var can_use_remote = true
 @onready var rocket_launcher_anim = $Head/Camera3D/RocketLauncher/AnimationPlayer
 @onready var rocket_launcher_barrel = $Head/Camera3D/RocketLauncher/Meshes/Barrel
 @onready var remote_control: Node3D = $Head/Camera3D/remote_control
+@onready var machingun_max_ammo := 75
+@onready var rifles_max_ammo := 30
+@onready var rpg_max_ammo := 1
+@onready var laser_max_ammo := 1
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -61,6 +73,12 @@ func _ready() -> void:
 	dummy = bullet_trail.instantiate()
 	dummy = rocket.instantiate()
 	dummy.queue_free()
+	
+	rifles_current_ammo = rifles_max_ammo
+	machingun_current_ammo = machingun_max_ammo
+	rpg_current_ammo = rpg_max_ammo
+	laser_current_ammo = laser_max_ammo
+	_update_ammo_tracker(weapon)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -118,8 +136,9 @@ func _physics_process(delta: float) -> void:
 				_shoot_remote()
 	
 	# Weapon Switching
-	if Input.is_action_just_pressed("switch_weapon") && can_shoot:
-		var next_weapon = (weapon + 1) % weapons.size()
+	if (Input.is_action_just_pressed("switch_weapon_up") or Input.is_action_just_pressed("switch_weapon_down")) && can_shoot:
+		var dir = 1 if Input.is_action_just_pressed("switch_weapon_up") else -1
+		var next_weapon = (weapon + dir + weapons.size()) % weapons.size()
 		_raise_weapon(next_weapon)
 		
 	# Handle Airstrike Mark
@@ -128,6 +147,10 @@ func _physics_process(delta: float) -> void:
 		airstrike_mark.global_position = aim_ray.get_collision_point()
 	else:
 		airstrike_mark.set_visible(false)
+	
+	# Handle Reload
+	if Input.is_action_just_pressed("reload") && can_shoot:
+		_handle_reload()
 	
 	move_and_slide()
 
@@ -148,10 +171,12 @@ func hit(dir):
 	velocity += dir * HIT_STAGGER
 
 func _shoot_rifles():
-	if !rifle_anim.is_playing():
+	if !rifle_anim.is_playing() and rifles_current_ammo > 0:
 		rifle_anim.play("Shoot")
 		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
 		instance = bullet.instantiate()
+		rifles_current_ammo -= 1
+		_update_ammo_tracker(weapon)
 		instance.position = rifle_barrel.global_position
 		instance.transform.basis = rifle_barrel.global_transform.basis
 		if aim_ray.is_colliding():
@@ -159,7 +184,7 @@ func _shoot_rifles():
 		else:
 			instance.set_velocity(aim_rayend.global_position)
 		get_parent().add_child(instance)
-	if !rifle_anim_secondary.is_playing():
+	if !rifle_anim_secondary.is_playing() and rifles_current_ammo > 0:
 		rifle_anim_secondary.play("Shoot")
 		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_RIFLES_SHOOT)
 		instance = bullet.instantiate()
@@ -172,10 +197,12 @@ func _shoot_rifles():
 		get_parent().add_child(instance)
 
 func _shoot_machinegun():
-	if !machinegun_anim.is_playing():
+	if !machinegun_anim.is_playing() and machingun_current_ammo > 0:
 		machinegun_anim.play("Shoot")
 		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_MG_SHOOT)
 		instance = bullet_trail.instantiate()
+		machingun_current_ammo -= 1
+		_update_ammo_tracker(weapon)
 		if aim_ray.is_colliding():
 			instance.init(machingun_barrel.global_position, aim_ray.get_collision_point())
 			get_parent().add_child(instance)
@@ -188,10 +215,12 @@ func _shoot_machinegun():
 			instance.init(machingun_barrel.global_position, aim_rayend.global_position)
 
 func _shoot_rpg():
-	if !rocket_launcher_anim.is_playing():
+	if !rocket_launcher_anim.is_playing() and rpg_current_ammo > 0:
 		rocket_launcher_anim.play("Shoot")
 		AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ON_RPG_SHOOT)
 		instance = rocket.instantiate()
+		rpg_current_ammo -= 1
+		_update_ammo_tracker(weapon)
 		instance.position = rocket_launcher_barrel.global_position
 		instance.transform.basis = rocket_launcher_barrel.global_transform.basis
 		if aim_ray.is_colliding():
@@ -203,6 +232,7 @@ func _shoot_rpg():
 func _shoot_remote() -> void:
 	if aim_ray.is_colliding() and can_use_remote:
 		can_use_remote = false
+		laser_current_ammo -= 1
 		var i = orbital_laser_scene.instantiate()
 		get_parent().add_child(i)
 		i.global_position = aim_ray.get_collision_point()
@@ -235,6 +265,49 @@ func _raise_weapon(new_weapon):
 			weapon_switching_anim.play_backwards("LowerRPG")
 		weapons.REMOTE:
 			weapon_switching_anim.play_backwards("LowerRemote")
+	_update_hotbar(new_weapon)
+	_update_ammo_tracker(new_weapon)
 	await weapon_switching_anim.animation_finished
 	weapon = new_weapon
+	can_shoot = true
+
+func _update_ammo_tracker(tracked_weapon: weapons):
+	match tracked_weapon:
+		weapons.MACHINEGUN:
+			ammo_tracker.text = str(machingun_current_ammo) + " / " + str(machingun_max_ammo)
+		weapons.RIFLES:
+			ammo_tracker.text = str(rifles_current_ammo) + " / " + str(rifles_max_ammo)
+		weapons.RPG:
+			ammo_tracker.text = str(rpg_current_ammo) + " / " + str(rpg_max_ammo)
+		weapons.REMOTE:
+			ammo_tracker.text = str(laser_current_ammo) + " / " + str(laser_max_ammo)
+
+func _update_hotbar(to_weapon: weapons):
+	for child in hotbar.get_children():
+		if child is Button:
+			child.button_pressed = false
+	match to_weapon:
+		weapons.MACHINEGUN:
+			hotbar.get_node("MGun").button_pressed = true
+		weapons.RIFLES:
+			hotbar.get_node("Rifles").button_pressed = true
+		weapons.RPG:
+			hotbar.get_node("RPG").button_pressed = true
+		weapons.REMOTE:
+			hotbar.get_node("Laser").button_pressed = true
+
+func _handle_reload():
+	can_shoot = false
+	ammo_tracker.text = "Reloading..."
+	await get_tree().create_timer(1).timeout
+	match weapon:
+		weapons.MACHINEGUN:
+			machingun_current_ammo = machingun_max_ammo
+		weapons.RIFLES:
+			rifles_current_ammo = rifles_max_ammo
+		weapons.RPG:
+			rpg_current_ammo = rpg_max_ammo
+		weapons.RPG:
+			laser_current_ammo = laser_max_ammo
+	_update_ammo_tracker(weapon)
 	can_shoot = true

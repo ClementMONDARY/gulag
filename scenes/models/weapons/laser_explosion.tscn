@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4mnmbedxjeyn"]
+[gd_scene format=3 uid="uid://c4mnmbedxjeyn"]
 
-[ext_resource type="Script" uid="uid://dle80t1yw5vax" path="res://scripts/laser_explosion.gd" id="1_lxwvd"]
+[ext_resource type="Script" uid="uid://dle80t1yw5vax" path="res://scripts/weapons/laser_explosion.gd" id="1_lxwvd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lxwvd"]
 radius = 5.0

@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://cj0ioujq1uhw4" path="res://scenes/models/entities/player.tscn" id="16_dss4m"]
 [ext_resource type="Texture2D" uid="uid://bfvno5n3udxqp" path="res://assets/textures/crosshair161.png" id="17_7t5mc"]
 [ext_resource type="Texture2D" uid="uid://0sl41w4543am" path="res://assets/textures/crosshair162.png" id="18_lakw3"]
-[ext_resource type="Texture2D" uid="uid://o1ng1yyo48bk" path="res://assets/textures/tilemap_packed.png" id="19_7iits"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e3hyu"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -101,14 +100,6 @@ agent_radius = 0.4
 albedo_color = Color(0.509286, 0.509286, 0.509286, 1)
 albedo_texture = ExtResource("1_rwgxs")
 uv1_triplanar = true
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pm21f"]
-atlas = ExtResource("19_7iits")
-region = Rect2(210, 32, 12, 15)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2lf6f"]
-atlas = ExtResource("19_7iits")
-region = Rect2(194, 32, 12, 15)
 
 [node name="World" type="Node3D" unique_id=106679461]
 script = ExtResource("1_7t5mc")
@@ -1889,13 +1880,6 @@ mouse_filter = 2
 mouse_behavior_recursive = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="UI/GridContainer" unique_id=884929501]
-texture_filter = 1
-custom_minimum_size = Vector2(22, 28)
-layout_mode = 2
-size_flags_vertical = 4
-texture = SubResource("AtlasTexture_pm21f")
-
 [node name="MGun" type="Button" parent="UI/GridContainer" unique_id=680750092]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -1943,13 +1927,6 @@ toggle_mode = true
 button_mask = 0
 text = "Laser"
 clip_text = true
-
-[node name="TextureRect2" type="TextureRect" parent="UI/GridContainer" unique_id=1465794180]
-texture_filter = 1
-custom_minimum_size = Vector2(22, 28)
-layout_mode = 2
-size_flags_vertical = 4
-texture = SubResource("AtlasTexture_2lf6f")
 
 [node name="ZombieSpawnTimer" type="Timer" parent="." unique_id=1571295347]
 wait_time = 5.0

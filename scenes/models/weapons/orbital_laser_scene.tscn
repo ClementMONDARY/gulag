@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://s74f5sqvf78i"]
+[gd_scene format=4 uid="uid://s74f5sqvf78i"]
 
 [ext_resource type="Texture2D" uid="uid://bwfp578kritob" path="res://assets/models/starship/Starship_cortemp.png" id="1_7jedo"]
-[ext_resource type="Script" uid="uid://dpdbutga65a6i" path="res://scripts/orbital_laser_scene.gd" id="1_k0oc2"]
+[ext_resource type="Script" uid="uid://dpdbutga65a6i" path="res://scripts/weapons/orbital_laser_scene.gd" id="1_k0oc2"]
 [ext_resource type="AudioStream" uid="uid://cqc415l4euahq" path="res://assets/audio/starship/exit hyperspace.wav" id="2_4rmva"]
 [ext_resource type="AudioStream" uid="uid://bd28p2wnukw6a" path="res://assets/audio/starship/siren.wav" id="3_k15sb"]
-[ext_resource type="PackedScene" uid="uid://cnpbdleukbwrj" path="res://scenes/laser.tscn" id="4_sndce"]
+[ext_resource type="PackedScene" uid="uid://cnpbdleukbwrj" path="res://scenes/models/weapons/laser.tscn" id="4_sndce"]
 [ext_resource type="AudioStream" uid="uid://cbajx7vmtnc4t" path="res://assets/audio/starship/enter hyperspace.wav" id="5_82t3g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4u1sl"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=20 format=4 uid="uid://bhpb45iep6ktj"]
+[gd_scene format=4 uid="uid://bhpb45iep6ktj"]
 
-[ext_resource type="Script" uid="uid://c5qu4kmqv8urs" path="res://scripts/rocket.gd" id="1_3341w"]
+[ext_resource type="Script" uid="uid://c5qu4kmqv8urs" path="res://scripts/weapons/rocket.gd" id="1_3341w"]
 [ext_resource type="AudioStream" uid="uid://dk57i4bowhmat" path="res://assets/audio/rpg/Roblox Rocket Launcher Launching Sound.wav" id="2_dkv7l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ssxpv"]

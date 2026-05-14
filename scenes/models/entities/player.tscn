@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cj0ioujq1uhw4"]
+[gd_scene format=3 uid="uid://cj0ioujq1uhw4"]
 
-[ext_resource type="Script" uid="uid://bk5bbiddceqwd" path="res://scripts/character_body_3d.gd" id="1_3vyb7"]
-[ext_resource type="PackedScene" uid="uid://bxd8em718n4ax" path="res://scenes/steampunk_rifle.tscn" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://dwmk60qpyq7u0" path="res://scenes/steampunk_machingun.tscn" id="3_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://celbgpy2ejkpv" path="res://scenes/rocket_launcher.tscn" id="4_dqkch"]
-[ext_resource type="PackedScene" uid="uid://gm5ygcv3a4pd" path="res://scenes/remote_control.tscn" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://bk5bbiddceqwd" path="res://scripts/entities/character_body_3d.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://bxd8em718n4ax" path="res://scenes/models/weapons/steampunk_rifle.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://dwmk60qpyq7u0" path="res://scenes/models/weapons/steampunk_machingun.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://celbgpy2ejkpv" path="res://scenes/models/weapons/rocket_launcher.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://gm5ygcv3a4pd" path="res://scenes/models/weapons/remote_control.tscn" id="5_qlg0r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rwgxs"]
 lightmap_size_hint = Vector2i(17, 14)

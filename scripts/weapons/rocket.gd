@@ -4,7 +4,7 @@ extends Node3D
 const SPEED = 25.0
 var velocity = Vector3.ZERO
 
-var rocket_explosion = preload("res://scenes/rocket_explosion.tscn")
+var rocket_explosion = preload("res://scenes/models/weapons/rocket_explosion.tscn")
 var instance
 
 @onready var ray = $RayCast3D

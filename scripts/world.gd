@@ -4,18 +4,13 @@ extends Node3D
 @onready var navigation_region = $Map/NavigationRegion3D
 
 @onready var hit_rect = $UI/ColorRect
-@onready var crosshair = $UI/Crosshair
 @onready var crosshair_hit = $UI/CrosshairHit
 
-var zombie = load("res://scenes/zombie.tscn")
+var zombie = load("res://scenes/models/entities/zombie.tscn")
 var instance
 
 func _ready() -> void:
 	randomize()
-	crosshair.position.x = get_viewport().size.x / 2 - 32
-	crosshair.position.y = get_viewport().size.y / 2 - 32
-	crosshair_hit.position.x = get_viewport().size.x / 2 - 32
-	crosshair_hit.position.y = get_viewport().size.y / 2 - 32
 	AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.LEVEL_MUSIC)
 
 func _on_player_player_hit() -> void:
