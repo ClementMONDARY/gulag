@@ -196,52 +196,51 @@ outer_radius = 8.0
 transparency = 1
 albedo_color = Color(0.5254902, 0, 0, 0.44705883)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" unique_id=1860852613]
 script = ExtResource("1_3vyb7")
+start_weapon = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=701750440]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_rwgxs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=17956086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_4wyf3")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1402129708]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1895033202]
 
-[node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_g2els")]
+[node name="Steampunk Rifle" parent="Head/Camera3D" unique_id=460960058 instance=ExtResource("2_g2els")]
 transform = Transform3D(0.999703, 0.0149977, 0.0191694, -0.0139417, 0.99844, -0.0540788, -0.0199505, 0.0537956, 0.998353, 0.32, -1.5, -0.631)
 
-[node name="Steampunk Rifle Secondary" parent="Head/Camera3D" instance=ExtResource("2_g2els")]
+[node name="Steampunk Rifle Secondary" parent="Head/Camera3D" unique_id=734120328 instance=ExtResource("2_g2els")]
 transform = Transform3D(0.999732, 0.0129215, -0.0191694, -0.0139417, 0.99844, -0.0540788, 0.0184406, 0.0543316, 0.998353, -0.32, -1.5, -0.631)
 
-[node name="Steampunk Machingun" parent="Head/Camera3D" instance=ExtResource("3_qhqgy")]
+[node name="Steampunk Machingun" parent="Head/Camera3D" unique_id=2063597923 instance=ExtResource("3_qhqgy")]
 transform = Transform3D(0.999962, 0, -0.00872654, 0, 1, 0, 0.00872654, 0, 0.999962, 0.189, -0.261, -0.35)
 
-[node name="RocketLauncher" parent="Head/Camera3D" instance=ExtResource("4_dqkch")]
+[node name="RocketLauncher" parent="Head/Camera3D" unique_id=1165013901 instance=ExtResource("4_dqkch")]
 transform = Transform3D(-1.0583841e-06, 3.4618147e-06, 1, 0.956305, 0.2923721, 0, -0.2923721, 0.956305, -3.6199901e-06, 0.305, 0.55, 0.05)
 
-[node name="remote_control" parent="Head/Camera3D" instance=ExtResource("5_qlg0r")]
+[node name="remote_control" parent="Head/Camera3D" unique_id=1664807595 instance=ExtResource("5_qlg0r")]
 transform = Transform3D(-0.00027477182, -0.0052986145, -0.9999861, -0.99865794, 0.051795635, -4.2207432e-08, 0.05179489, 0.99864364, -0.0053058565, 0.189, -0.473, -0.239)
 
-[node name="AimRay" type="RayCast3D" parent="Head/Camera3D"]
+[node name="AimRay" type="RayCast3D" parent="Head/Camera3D" unique_id=1629449847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 target_position = Vector3(0, -1, -100)
 collision_mask = 2
 collide_with_areas = true
 
-[node name="AimRayend" type="Node3D" parent="Head/Camera3D"]
+[node name="AimRayend" type="Node3D" parent="Head/Camera3D" unique_id=1527136586]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -101.5)
 
-[node name="WeaponSwitching" type="AnimationPlayer" parent="Head/Camera3D"]
-libraries = {
-&"": SubResource("AnimationLibrary_qlg0r")
-}
+[node name="WeaponSwitching" type="AnimationPlayer" parent="Head/Camera3D" unique_id=1555185638]
+libraries/ = SubResource("AnimationLibrary_qlg0r")
 
-[node name="AirstrikeMark" type="MeshInstance3D" parent="."]
+[node name="AirstrikeMark" type="MeshInstance3D" parent="." unique_id=1778998932]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("TorusMesh_qlg0r")
 surface_material_override/0 = SubResource("StandardMaterial3D_tuyoq")

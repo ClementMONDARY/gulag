@@ -60,10 +60,11 @@ var laser_current_ammo
 @onready var rocket_launcher_anim = $Head/Camera3D/RocketLauncher/AnimationPlayer
 @onready var rocket_launcher_barrel = $Head/Camera3D/RocketLauncher/Meshes/Barrel
 @onready var remote_control: Node3D = $Head/Camera3D/remote_control
-@onready var machingun_max_ammo := 75
-@onready var rifles_max_ammo := 30
-@onready var rpg_max_ammo := 1
-@onready var laser_max_ammo := 1
+
+@export var machingun_max_ammo := 75
+@export var rifles_max_ammo := 30
+@export var rpg_max_ammo := 1
+@export var laser_max_ammo := 1
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -230,9 +231,10 @@ func _shoot_rpg():
 		get_parent().add_child(instance)
 
 func _shoot_remote() -> void:
-	if aim_ray.is_colliding() and can_use_remote:
+	if aim_ray.is_colliding() and can_use_remote and laser_current_ammo > 0:
 		can_use_remote = false
 		laser_current_ammo -= 1
+		_update_ammo_tracker(weapon)
 		var i = orbital_laser_scene.instantiate()
 		get_parent().add_child(i)
 		i.global_position = aim_ray.get_collision_point()
@@ -297,9 +299,10 @@ func _update_hotbar(to_weapon: weapons):
 			hotbar.get_node("Laser").button_pressed = true
 
 func _handle_reload():
-	can_shoot = false
+	if not _can_reload(weapon): return
 	ammo_tracker.text = "Reloading..."
-	await get_tree().create_timer(1).timeout
+	_raise_weapon(weapon)
+	await weapon_switching_anim.animation_finished
 	match weapon:
 		weapons.MACHINEGUN:
 			machingun_current_ammo = machingun_max_ammo
@@ -307,7 +310,20 @@ func _handle_reload():
 			rifles_current_ammo = rifles_max_ammo
 		weapons.RPG:
 			rpg_current_ammo = rpg_max_ammo
-		weapons.RPG:
+		weapons.REMOTE:
 			laser_current_ammo = laser_max_ammo
 	_update_ammo_tracker(weapon)
 	can_shoot = true
+
+func _can_reload(current_weapon: weapons) -> bool:
+	match current_weapon:
+		weapons.MACHINEGUN:
+			return machingun_current_ammo != machingun_max_ammo
+		weapons.RIFLES:
+			return rifles_current_ammo != rifles_max_ammo
+		weapons.RPG:
+			return rpg_current_ammo != rpg_max_ammo
+		weapons.REMOTE:
+			return laser_current_ammo != laser_max_ammo
+		_:
+			return false
