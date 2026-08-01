@@ -106,6 +106,22 @@ uv1_triplanar = true
 atlas = ExtResource("19_7iits")
 region = Rect2(210, 32, 12, 15)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("19_7iits")
+region = Rect2(273, 17, 13, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7iits"]
+atlas = ExtResource("19_7iits")
+region = Rect2(289, 17, 13, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo54l"]
+atlas = ExtResource("19_7iits")
+region = Rect2(305, 17, 13, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpybi"]
+atlas = ExtResource("19_7iits")
+region = Rect2(321, 17, 13, 14)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lf6f"]
 atlas = ExtResource("19_7iits")
 region = Rect2(194, 32, 12, 15)
@@ -1908,6 +1924,20 @@ button_pressed = true
 button_mask = 0
 text = "MGun"
 
+[node name="TextureRect" type="TextureRect" parent="UI/GridContainer/MGun" unique_id=145322198]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_g4v7s")
+
 [node name="Rifles" type="Button" parent="UI/GridContainer" unique_id=719515006]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -1919,6 +1949,20 @@ toggle_mode = true
 button_mask = 0
 text = "Rifles"
 clip_text = true
+
+[node name="TextureRect" type="TextureRect" parent="UI/GridContainer/Rifles" unique_id=328857183]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_7iits")
 
 [node name="RPG" type="Button" parent="UI/GridContainer" unique_id=1678198134]
 custom_minimum_size = Vector2(60, 60)
@@ -1932,6 +1976,20 @@ button_mask = 0
 text = "RPG"
 clip_text = true
 
+[node name="TextureRect" type="TextureRect" parent="UI/GridContainer/RPG" unique_id=1892937682]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_oo54l")
+
 [node name="Laser" type="Button" parent="UI/GridContainer" unique_id=968481554]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -1943,6 +2001,20 @@ toggle_mode = true
 button_mask = 0
 text = "Laser"
 clip_text = true
+
+[node name="TextureRect" type="TextureRect" parent="UI/GridContainer/Laser" unique_id=1297880478]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_kpybi")
 
 [node name="TextureRect2" type="TextureRect" parent="UI/GridContainer" unique_id=1465794180]
 texture_filter = 1

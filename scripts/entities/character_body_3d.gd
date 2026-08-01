@@ -137,10 +137,7 @@ func _physics_process(delta: float) -> void:
 				_shoot_remote()
 	
 	# Weapon Switching
-	if (Input.is_action_just_pressed("switch_weapon_up") or Input.is_action_just_pressed("switch_weapon_down")) && can_shoot:
-		var dir = 1 if Input.is_action_just_pressed("switch_weapon_up") else -1
-		var next_weapon = (weapon + dir + weapons.size()) % weapons.size()
-		_raise_weapon(next_weapon)
+	_handle_weapon_switch()
 		
 	# Handle Airstrike Mark
 	if weapon == weapons.REMOTE and can_shoot and aim_ray.is_colliding():
@@ -327,3 +324,26 @@ func _can_reload(current_weapon: weapons) -> bool:
 			return laser_current_ammo != laser_max_ammo
 		_:
 			return false
+
+func _handle_weapon_switch():
+	if not can_shoot:
+		return
+
+	if Input.is_action_just_pressed("switch_weapon_up") or Input.is_action_just_pressed("switch_weapon_down"):
+		var dir = 1 if Input.is_action_just_pressed("switch_weapon_up") else -1
+		var next_weapon = (weapon + dir + weapons.size()) % weapons.size()
+		_raise_weapon(next_weapon)
+		return
+
+	var slot_weapon = -1
+	if Input.is_action_just_pressed("slot 1"):
+		slot_weapon = weapons.MACHINEGUN
+	elif Input.is_action_just_pressed("slot 2"):
+		slot_weapon = weapons.RIFLES
+	elif Input.is_action_just_pressed("slot 3"):
+		slot_weapon = weapons.RPG
+	elif Input.is_action_just_pressed("slot 4"):
+		slot_weapon = weapons.REMOTE
+
+	if slot_weapon != -1 and slot_weapon != weapon:
+		_raise_weapon(slot_weapon)

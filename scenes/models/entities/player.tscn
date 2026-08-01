@@ -198,7 +198,10 @@ albedo_color = Color(0.5254902, 0, 0, 0.44705883)
 
 [node name="Player" type="CharacterBody3D" unique_id=1860852613]
 script = ExtResource("1_3vyb7")
-start_weapon = 2
+machingun_max_ammo = null
+rifles_max_ammo = null
+rpg_max_ammo = null
+laser_max_ammo = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=701750440]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
